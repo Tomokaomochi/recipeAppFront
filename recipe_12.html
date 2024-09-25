@@ -267,8 +267,14 @@
                   console.error('ユーザーIDまたはレシピIDが取得できませんでした。');
                 }
               },
-              navigate() {
+            navigate() {
               window.location.href = 'home.html';
+            },
+            logout(){
+              //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+              sessionStorage.removeItem('user_name');
+              //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+              window.location.href = 'index.html';
             }
             }
       });
