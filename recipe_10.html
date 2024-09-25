@@ -13,8 +13,15 @@
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn @click="logout()">logout</v-btn>
+  
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>キャラメルポップコーン</h1>
       </div>
@@ -58,11 +65,11 @@
         <v-col cols="5" class="ingredients">
           <h2>材料:</h2> 
           <ul>
-            <li>キャラメル90g</li>
-            <li>グラニュー糖40g</li>
-            <li>水大さじ1</li>
-            <li>サラダ油小さじ1</li>
-            <li>ポップコーン50g</li>
+            <li>キャラメル 90g</li>
+            <li>グラニュー糖 40g</li>
+            <li>水 大さじ1</li>
+            <li>サラダ油 小さじ1</li>
+            <li>ポップコーン 50g</li>
           </ul>
         </v-col>
         

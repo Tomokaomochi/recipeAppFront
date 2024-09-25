@@ -13,8 +13,15 @@
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn @click="logout()">logout</v-btn>
+  
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>キャラメルアイス</h1>
       </div>
@@ -54,18 +61,18 @@
 
       <v-row class="details">
         <v-col cols="5" class="ingredients">
-          <h2>材料:</h2> 
+          <h2>材料</h2> 
           <ul>
-            <li>キャラメル50g</li>
-            <li>牛乳100ml</li>
-            <li>生クリーム200ml</li>
-            <li>ナッツやくるみ（無塩/ロースト）20g</li>
-            <li>お好みでキャラメルソースなど適量</li>
+            <li>キャラメル 50g</li>
+            <li>牛乳 100ml</li>
+            <li>生クリーム 200ml</li>
+            <li>ナッツやくるみ（無塩/ロースト） 20g</li>
+            <li>お好みでキャラメルソースなど 適量</li>
           </ul>
         </v-col>
         
         <v-col cols="7" class="steps">
-          <h2>手順:</h2>
+          <h2>手順</h2>
           <ol>
             <ul>キャラメルを粗みじん切りにする。</ul>
             <ul>鍋に牛乳、生クリーム、粗みじん切りにしたキャラメルを入れて耐熱性のゴムベラで混ぜながら弱火で加熱する。</ul>

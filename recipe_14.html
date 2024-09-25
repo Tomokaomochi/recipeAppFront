@@ -12,8 +12,15 @@
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn @click="logout()">logout</v-btn>
+  
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>メープルチュロス</h1>
       </div>
@@ -53,27 +60,27 @@
 
       <v-row class="details">
         <v-col cols="5" class="ingredients">
-          <h2>材料:</h2>
+          <h2>材料</h2>
           <ul>
-            <li>ホットケーキミックス150g</li>
-            <li>水1・1/2カップ</li>
-            <li>牛乳1/2カップ</li>
-            <li>メープルシロップ大さじ1</li>
-            <li>バター20g</li>
-            <li>サラダ油適量</li>
-            <li>グラニュー糖適量</li>
+            <li>ホットケーキミックス 150g</li>
+            <li>水 1・1/2カップ</li>
+            <li>牛乳 1/2カップ</li>
+            <li>メープルシロップ 大さじ1</li>
+            <li>バター 20g</li>
+            <li>サラダ油 適量</li>
+            <li>グラニュー糖 適量</li>
           </ul>
         </v-col>
 
         <v-col cols="7" class="steps">
-          <h2>手順:</h2>
+          <h2>手順</h2>
           <ol>
             <ul>鍋に水・牛乳・メープルシロップ・バターを入れて火にかける。</ul>
             <ul>沸騰したら火を止めてすぐにホットケーキミックスを加える。</ul>
             <ul>ゴムベラでひとかたまりになるまでしっかりと素早く練り混ぜ、人肌程度に冷ます。</ul>
             <ul>星型の口金をつけた絞り袋に生地を入れ、クッキングシートの上に15cm長さの棒状にしぼり出す。</ul>
             <ul>オーブントースター（700W）で10分焼く。</ul>
-            <ul>フライパンに2cm高さまで油を入れて 180℃に熱し、5.をきつね色になるまで揚げる。</ul>
+            <ul>フライパンに2cm高さまで油を入れて 180℃に熱し、⑤をきつね色になるまで揚げる。</ul>
             <ul>仕上げにグラニュー糖をまぶす。</ul>   
           </ol>
         </v-col>

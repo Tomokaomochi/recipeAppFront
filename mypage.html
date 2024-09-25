@@ -10,13 +10,27 @@
     <meta charset="UTF-8">
     <title>mypage</title>
     <style>
+      .v-main {
+        padding-top: 100px !important;
+      }
       .v-card:hover {
         cursor: pointer !important;
         background-color: #f5f5f5 !important;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important; 
         transition: background-color 0.3s, box-shadow 0.3s !important;
       }
-
+      .highlight {
+            display: inline-block;
+            background: linear-gradient(transparent 50%, #c6ebc5 50%);
+            margin-bottom: 15px;
+      }
+      .highlighted {
+            background: linear-gradient(transparent 60%, #c6ebc5 60%);
+            display: inline-block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            line-height: 1.5;
+      }
       .custom-line {
         border: 0; /* デフォルトの線を無効にする */
         border-top: 1px solid gray; /* グレーの線を作成 */
@@ -25,7 +39,84 @@
         width: calc(100% - 20px); /* 両側に余白を作る */
         margin-left: auto; /* 左右の中央揃え */
         margin-right: auto;
-    }
+      }
+    /* ハンバーガーメニューアイコンのスタイル */
+      .hamburger {
+        display: none;
+        width: 30px;
+        height: 25px;
+        position: relative;
+        cursor: pointer;
+      }
+            
+      .hamburger span {
+          display: block;
+          width: 100%;
+          height: 4px;
+          background-color: gray;
+          margin-bottom: 5px;
+          border-radius: 2px;
+          transition: all 0.3s;
+      }
+            
+            /* メニューが開いている状態のスタイル */
+      .hamburger.active span:nth-child(1) {
+          transform: translateY(9px) rotate(45deg);
+      }
+            
+      .hamburger.active span:nth-child(2) {
+          opacity: 0;
+      }
+            
+      .hamburger.active span:nth-child(3) {
+          transform: translateY(-9px) rotate(-45deg);
+      }
+            
+            /* ドロップダウンメニューのスタイル */
+      .nav-menu {
+          display: none;
+          background-color: #c6ebc5;
+          position: absolute;
+          right: 20px;
+          top: 60px;
+          width: 200px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          border-radius: 5px;
+          color: gray !important;
+      }
+            
+      .nav-menu.active {
+          display: block;
+      }
+            
+      .nav-menu a {
+          display: block;
+          padding: 10px;
+          color: gray !important;
+          text-decoration: none;
+          text-align: center;
+          border-bottom: 1px solid #eee;
+      }
+            
+      .nav-menu a:hover {
+          background-color: #f0f0f0;
+      }
+          
+      .nav-menu a:last-child {
+          border-bottom: none;
+      }
+            
+            /* 小さい画面向けのスタイル */
+      @media (max-width: 1000px) {
+          .v-btn {
+              display: none;
+          }
+            
+          .hamburger {
+              display: block;
+          }
+      }
+
     </style>
   </head>
     
@@ -35,16 +126,26 @@
         <v-app-bar app>
           <h1>😊おちゃらけ😊</h1>
           <v-spacer></v-spacer>
-              <v-btn onclick="window.location.href = 'home.html';">Home</v-btn> |
-              <v-btn onclick="window.location.href = 'mypage.html';">my page</v-btn> |
+              <v-btn onclick="window.location.href = 'home.html';">Home</v-btn>
+              <v-btn onclick="window.location.href = 'mypage.html';">my page</v-btn>
               <v-btn @click="logout()">logout</v-btn>
+              <div class="hamburger" @click="toggleMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+                </div>
+                <div :class="{'nav-menu': true, 'active': isMenuOpen}">
+                <a href="home.html">Home</a>
+                <a href="mypage.html">My Page</a>
+                <a @click="logout()">Logout</a>
+            </div>
         </v-app-bar>
           <v-main>
               <v-container>
                 <h1>MY PAGE</h1>
                 <h3>こんにちは、{{ user_name }}さん😊</h3>
                 <hr class="custom-line">
-                <h3>お気に入り一覧</h3>
+                <h3 class="highlight">お気に入り一覧</h3>
 
                   <!-- <v-tabs v-model="tab">
                     <v-tab>お気に入り一覧</v-tab>
@@ -86,8 +187,10 @@
                                 {{ item.recipe_name }}
                               </v-card-subtitle>
                         
-                              <v-card-text class="card-recipe-time">                          
-                                <div>調理時間: {{ item.recipe_time }}分</div>
+                              <v-card-text class="card-recipe-time"> 
+                                <div>                         
+                                  <span class="highlighted">調理時間</span>: {{ item.recipe_time }}分
+                                </div>
                               </v-card-text>
                           </v-card>
                         </v-col>
@@ -125,6 +228,7 @@
       vuetify: new Vuetify(),
       data() {
         return {
+          isMenuOpen: false,
           //tab: 0, 
           dataList: [], // データ表示用配列
           // searchHistory: ['', '', ''], // サンプルデータ
@@ -140,6 +244,10 @@
       },
       
       methods: {
+        toggleMenu() {
+          this.isMenuOpen = !this.isMenuOpen;
+        },
+
         async fetchFavorites() {   
           try {
             // getUserId メソッドを呼び出して user_id を取得
@@ -213,6 +321,7 @@
         },
 
         goToDetail(recipe_id){
+          sessionStorage.setItem("recipe_id", recipe_id);
           const url = `recipe_${recipe_id}.html`;
           window.location.href = url;
         },

@@ -13,8 +13,15 @@
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn @click="logout()">logout</v-btn>
+  
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>はちみつ大学芋</h1>
       </div>

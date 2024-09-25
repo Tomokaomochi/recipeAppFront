@@ -14,26 +14,53 @@
             top: 0;
             width: 100%;
             z-index: 1000;
+            padding: 20px; /* ヘッダー内の左右の余白 */
+            text-align: left; /* テキストを左寄せにする */
+            height: 100px !important;
+            font-weight: bold;
+            width: 100%; /* ヘッダーを横幅いっぱいに広げる */
+            margin: 0; /* マージンをリセット */
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important; /* ヘッダーにシャドウを追加 */
         }
         .bar {
             background-color: #c6ebc5 !important;
         }
         .v-app-bar h1 {
-            margin: 0;
-            font-weight: normal;
+            color: rgb(56, 56, 56) !important; /* ヘッダー内のテキストの色 */
+            text-align: center !important;
+            font-size: 30px !important;
+            font-weight: bold;
+            vertical-align: middle !important;
+            display: flex !important;
+            align-items: center !important;
+            /* margin: 0;
+            font-weight: normal; */
             /* color: #777; */
         }
+        .v-app-bar .v-btn {
+            margin-left: 10px !important; /* ボタンの間隔 */
+            margin-right: 10px !important; /* ボタンの間隔 */
+        }
+   
+        .v-app-bar .v-btn:hover {
+            background-color: #c6ebc5 !important; /* ボタンにホバー時の背景色 */
+        }
         .login-btn {  
-            color: #777 !important;
+            color: gray !important; /* ボタンのテキストの色 */ 
+            position: absolute;
+            right: 20px;
+
+            /* color: #777 !important;
             background-color: white !important;
             position: absolute;
-            right: 16px;
+            right: 16px; */
         }
         .v-main {
-            padding-top: 64px;
+            padding-top: 100px;
         }
         .top-image {
-            padding-top: 64px;
+            padding-top: 100px;
             display: block;
             margin: 0 auto;
             cursor: pointer;
@@ -58,9 +85,9 @@
             font-size: 14x;
         }
         .v-carousel {
-            padding-top: 48px;
+            padding-top: 65px;
             width: 50vw;
-            min-height: 520px;
+            min-height: 550px;
             position: relative;
         }
         .v-carousel-item {
@@ -69,7 +96,7 @@
             align-items: center;
         }
         .keyword {
-            padding-top: 90px;
+            padding-top: 120px;
         }
         .keyword h2 {
             font-weight: normal;
@@ -91,7 +118,6 @@
         .recommend {
             padding-top: 100px;
         }
-
         .recommend h2 {
             font-weight: normal;
         }
@@ -111,8 +137,8 @@
         .login-lower-btn {
             color: #777 !important;
             background-color: #c6ebc5 !important;
+            width: 200px;
         }
-
         footer {
             background-color: #c6ebc5 !important;
         }
@@ -143,7 +169,7 @@
             <header>
                 <v-app-bar class="bar">
                     <h1>😊おちゃらけ😊</h1>
-                    <v-btn @click="navigate" class="login-btn">ログイン</v-btn>
+                    <v-btn @click="navigate" class="login-btn">login</v-btn>
                 </v-app-bar>
             </header>
 
@@ -334,7 +360,7 @@
                             <div class="text-center mt-8">
                               <v-btn @click="navigate" class="login-lower-btn">ログイン</v-btn>
                             </div>
-                            <div class="text-center mt-8">
+                            <div class="text-center mt-5">
                                 <v-btn @click="navigate2" class="login-lower-btn">新規登録</v-btn>
                             </div>
                           </v-card-text>

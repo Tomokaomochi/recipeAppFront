@@ -8,13 +8,108 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>生キャラメル | レシピ詳細</title>
+  <style>
+    /* ハンバーガーメニューアイコンのスタイル */
+    .hamburger {
+                display: none;
+                width: 30px;
+                height: 25px;
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .hamburger span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: gray;
+                margin-bottom: 5px;
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+            
+            /* メニューが開いている状態のスタイル */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            /* ドロップダウンメニューのスタイル */
+            .nav-menu {
+                display: none;
+                background-color: #fddbb0;
+                color:gray;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                width: 200px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                color: gray !important;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 10px;
+                color: gray !important;;
+                text-decoration: none;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+            
+            /* 小さい画面向けのスタイル */
+            @media (max-width: 1000px) {
+                .headerbtn {
+                    display: none;
+                }
+            
+                .hamburger {
+                    display: block;
+                }
+            }
+  </style>
 </head>
 
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn class="headerbtn" @click="logout()">logout</v-btn>
+        <div class="hamburger" @click="toggleMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+          </div>
+          <div :class="{'nav-menu': true, 'active': isMenuOpen}">
+          <a href="home.html">Home</a>
+          <a href="mypage.html">My Page</a>
+          <a @click="logout()">Logout</a>
+        </div>
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>生キャラメル</h1>
       </div>
@@ -54,18 +149,21 @@
         <v-col cols="5" class="ingredients">
           <h2>材料</h2>
           <ul>
-            <li>ミルクキャラメル12粒</li>
-            <li>バター20g</li>
-            <li>生クリーム15g</li>
+            <li>ミルクキャラメル 12粒</li>
+            <li>バター 20g</li>
+            <li>生クリーム 15g</li>
           </ul>
         </v-col>
         
         <v-col cols="7" class="steps">
           <h2>手順</h2>
           <ol>
-            <ul>できるだけ小さな鍋またはフライパンに入れ、弱火にかけ、こがさないよう、ヘラでかき混ぜながら完全に溶かす。 ＊キャラメルが溶けて全体がきれいに混ざったらすぐに火からおろしてね。 ＜電子レンジならもっと簡単↓＞ 耐熱性の器にすべての材料を入れ、ふんわりとラップフィルムをかけ、600Wで30秒加熱後一度かきまぜ、 さらに30秒ほど加熱し完全に溶かす。</ul>
-            <ul>四角い器（耐熱性のプラスチック容器やバットなど）にクッキングシートを敷き、【1】を流し入れる。</ul>
-            <ul>【2】の粗熱がとれたら、冷蔵庫に入れて冷やし固め、お好みの大きさに切り分ける。 ＊急ぐときは冷凍庫で固めに冷やして、キッチンばさみでカットすると早くて簡単！</ul>
+            <ul>できるだけ小さな鍋またはフライパンに入れ、弱火にかけ、こがさないよう、ヘラでかき混ぜながら完全に溶かす。 <br>
+              point: キャラメルが溶けて全体がきれいに混ざったらすぐに火からおろす。<br>
+               ＜電子レンジver.＞ 耐熱性の器にすべての材料を入れ、ふんわりとラップフィルムをかけ、600Wで30秒加熱後一度かきまぜ、 さらに30秒ほど加熱し完全に溶かす。</ul>
+            <ul>四角い器（耐熱性のプラスチック容器やバットなど）にクッキングシートを敷き、①を流し入れる。</ul>
+            <ul>②の粗熱がとれたら、冷蔵庫に入れて冷やし固め、お好みの大きさに切り分ける。 <br>
+              point: 急ぐときは冷凍庫で固めに冷やして、キッチンばさみでカットする！</ul>
           </ol>
         </v-col>
       </v-row>
@@ -86,6 +184,7 @@
       vuetify: new Vuetify(),
       data() {
         return {
+          isMenuOpen: false,
           isFavorite: false, // 初期状態はお気に入りでない
           nextId: null
         };
@@ -96,6 +195,10 @@
       },
 
       methods: {
+        toggleMenu() {
+          this.isMenuOpen = !this.isMenuOpen;
+          },
+
         async getUserId() {
           const user_name = sessionStorage.getItem('user_name');
           if (user_name) {
@@ -216,7 +319,14 @@
 
         navigate() {
           window.location.href = 'home.html';
-        }
+        },
+
+        logout(){
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        sessionStorage.removeItem('user_name');
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        window.location.href = 'index.html';
+                    }
       }
     });
   </script>

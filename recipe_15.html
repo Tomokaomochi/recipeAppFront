@@ -13,8 +13,15 @@
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn @click="logout()">logout</v-btn>
+  
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>カステラ</h1>
       </div>
@@ -55,7 +62,7 @@
       <v-row class="details">
         <v-col cols="5" class="ingredients">
 
-            <h2>材料:</h2>
+            <h2>材料</h2>
             <ul>
               <li>はちみつ 大さじ2</li>
               <li>牛乳 大さじ1</li>
@@ -74,7 +81,7 @@
             <ul>強力粉をふるっておく。</ul>
             <ul>はちみつ・牛乳・みりんを合わせて混ぜ、電子レンジ（500W）で10秒間加熱。</ul>
             <ul>ボウルに卵を入れ、50℃程度の湯煎にかけながら、その都度よく泡立てる。</ul>
-            <ul> 2.で加熱した材料を加えてさらによく泡立てる。</ul>
+            <ul> ②で加熱した材料を加えてさらによく泡立てる。</ul>
             <ul>ふるっておいた強力粉を一気に加え、ヘラで切るように混ぜる。</ul>
             <ul>型に流し入れ、2〜3回テーブルに軽くうちつけて空気を抜く。</ul>
             <ul>80℃に予熱したオーブンでまず10分間、その後150℃に下げて20分間焼く。</ul>

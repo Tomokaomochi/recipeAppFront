@@ -13,8 +13,15 @@
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn @click="logout()">logout</v-btn>
+  
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>ハニーマスタードチキン</h1>
       </div>
@@ -59,7 +66,7 @@
               <li>塩こしょう 少々</li>
               <li>薄力粉 適量</li>
               <li>サラダ油 大さじ1</li>
-              <h4>【ハニーマスタードソース】</h4>
+              <p>ハニーマスタードソース</p>
               <li>はちみつ 大さじ2</li>
               <li>粒マスタード大さじ 1/2</li>
               <li>水 小さじ1</li>
@@ -74,7 +81,6 @@
               <ul>鶏肉はしっかりめに塩こしょうをふり、薄力粉を全体にまぶす</ul>
               <ul>ボウルに、はちみつ・粒マスタード・水・しょうゆを入れて混ぜる（ハニーマスタードソース）</ul>
               <ul>フライパンにサラダ油を入れて中火で熱し、鶏肉の皮目を下にしてしっかり焼き目をつける</ul>
-              <ul>フライパンにはちみつ・醤油・みりんを加えて火にかけ、少し煮詰める。</ul>
               <ul>焼き目がついたら、裏返してふたをし、5分蒸し焼きにする</ul>
               <ul>鶏肉に火が通ったら、ハニーマスタードソースを加えて絡める</ul>
             </ol>

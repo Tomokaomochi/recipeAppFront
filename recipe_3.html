@@ -8,13 +8,108 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>マカロン | お菓子メーカー</title>
+  <style>
+    /* ハンバーガーメニューアイコンのスタイル */
+    .hamburger {
+                display: none;
+                width: 30px;
+                height: 25px;
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .hamburger span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: gray;
+                margin-bottom: 5px;
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+            
+            /* メニューが開いている状態のスタイル */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            /* ドロップダウンメニューのスタイル */
+            .nav-menu {
+                display: none;
+                background-color: #fddbb0;
+                color:gray;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                width: 200px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                color: gray !important;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 10px;
+                color: gray !important;;
+                text-decoration: none;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+            
+            /* 小さい画面向けのスタイル */
+            @media (max-width: 1000px) {
+                .headerbtn {
+                    display: none;
+                }
+            
+                .hamburger {
+                    display: block;
+                }
+            }
+  </style>
+
 </head>
 <body>
   <div id="app">
     <v-app>
-      <!-- ヘッダー -->
-      <header class="app-header">🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn class="headerbtn" @click="logout()">logout</v-btn>
+        <div class="hamburger" @click="toggleMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+          </div>
+          <div :class="{'nav-menu': true, 'active': isMenuOpen}">
+          <a href="home.html">Home</a>
+          <a href="mypage.html">My Page</a>
+          <a @click="logout()">Logout</a>
+        </div>
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>マカロン</h1>
       </div>
@@ -62,42 +157,38 @@
             <li>グラニュー糖 30g</li>
             <li>アーモンドパウダー 80g</li>
             <li>粉糖 130g</li>
+            <p>ガナッシュ</p>
+            <li>ブラックチョコレート 50g</li>
+            <li>ミルクチョコレート 50g</li>
+            <li>生クリーム 100ml</li>
+            <li>お好みでブランデー 5ml</li>
           </ul>
-          <p><strong>☆ガナッシュ:</strong> ブラックチョコレート 50g、ミルクチョコレート 50g、生クリーム 100ml、お好みでブランデー 5ml</p>
         </v-col>
 
         <!-- 手順部分 -->
         <v-col cols="7" class="steps">
           <h2>手順</h2>
           <ol>
-            <li>下準備
-              <ul>
-                <li>チョコレートを刻んでおく。</li>
-                <li>卵白は冷やす。</li>
-                <li>粉類をふるう。</li>
-                <li>オーブンを130℃に予熱。</li>
-              </ul>
-            </li>
-            <li>マカロンの土台
-              <ul>
-                <li>卵白とグラニュー糖でメレンゲを作る。</li>
-                <li>粉類を加えて生地を作る。</li>
-                <li>絞り袋で成形。</li>
-                <li>30分以上乾燥。</li>
-                <li>130℃で20分、170℃で3分焼く。</li>
-              </ul>
-            </li>
-            <li>ガナッシュ
-              <ul>
-                <li>生クリームを沸騰させ、チョコレートに加える。</li>
-                <li>混ぜて冷やし、もったりしたら完成。</li>
-              </ul>
-            </li>
-            <li>仕上げ
-              <ul>
-                <li>ガナッシュを挟んで完成。</li>
-              </ul>
-            </li>
+            <ul>下準備
+              <li>チョコレートを刻んでおく。</li>
+              <li>卵白は冷やす。</li>
+              <li>粉類をふるう。</li>
+              <li>オーブンを130℃に予熱。</li>
+            </ul>
+            <ul>マカロンの土台
+              <li>卵白とグラニュー糖でメレンゲを作る。</li>
+              <li>粉類を加えて生地を作る。</li>
+              <li>絞り袋で成形。</li>
+              <li>30分以上乾燥。</li>
+              <li>130℃で20分、170℃で3分焼く。</li>
+            </ul>
+            <ul>ガナッシュ
+              <li>生クリームを沸騰させ、チョコレートに加える。</li>
+              <li>混ぜて冷やし、もったりしたら完成。</li>
+            </ul>
+            <ul>仕上げ
+              <li>ガナッシュを挟んで完成。</li>
+            </ul>
           </ol>
         </v-col>
       </v-row>
@@ -112,83 +203,179 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
   <script>
     new Vue({
-      el: '#app',
-      vuetify: new Vuetify(),
-      data() {
-        return {
-          isFavorite: false
-        };
-      },
-      async mounted() {
-        await this.checkIfFavorite();
-      },
-      methods: {
-        async getUserId() {
-          const user_name = sessionStorage.getItem('user_name');
-          if (user_name) {
-            try {
-              const loginResponse = await fetch(`https://m3h-kouhei-2010.azurewebsites.net/api/LOGINIDSELECT?user_name=${user_name}`);
-              const userIds = await loginResponse.json();
-              if (userIds.length === 0) {
-                console.error('ユーザーが見つかりませんでした。');
-              }
-              return userIds[0];
-            } catch (error) {
-              console.error('エラーが発生しました:', error);
-            }
-          }
+        el: '#app',
+        vuetify: new Vuetify(),
+        data() {
+          return {
+            isMenuOpen: false,
+            isFavorite: false, // 初期状態はお気に入りでない
+            nextId: null
+          };
         },
-        async addToFavorite() {
-          const user_id = await this.getUserId();
-          const recipe_id = sessionStorage.getItem("recipe_id");
-          const favoritedata = { user_id, recipe_id };
 
-          if (user_id && recipe_id) {
+        async mounted() {
+          await this.checkIfFavorite();
+        },
+
+        methods: {
+          toggleMenu() {
+          this.isMenuOpen = !this.isMenuOpen;
+          },
+
+          // セッションのuser_nameからuser_idをとってくる
+          async getUserId() {
+            const user_name = sessionStorage.getItem('user_name');
+            if (user_name) {
+              try {
+                const loginResponse = await fetch(`https://m3h-kouhei-2010.azurewebsites.net/api/LOGINIDSELECT?user_name=${user_name}`);
+                const userIds = await loginResponse.json();
+                if (userIds.length === 0) {
+                  console.error('ユーザーが見つかりませんでした。');
+                  return null;
+                }
+                const user_id = userIds[0];
+                return user_id;
+              } catch (error) {
+                console.error('エラーが発生しました:', error);
+                return null;
+              }
+            } else {
+              console.error('セッションにuser_nameが保存されていません。');
+              return null;
+            }
+          },
+
+          async readNextFavoriteId() {
             try {
-              const response = await axios.post("https://m3h-kouhei-2010.azurewebsites.net/api/FAVORITEINSERT", favoritedata);
-              if (response.status === 200) {
-                this.isFavorite = true;
+              const response = await axios.get('https://m3h-kouhei-2010.azurewebsites.net/api/FAVORITEALLSELECT');
+              console.log('Response:', response);
+              console.log('Response data:', response.data);
+              console.log('response.data.List:', response.data.List);
+
+              if (response.data && response.data.List) {
+                const ids = response.data.List.map(favoriteid => Number(favoriteid.favorite_id));
+                this.nextId = ids.length ? Number(Math.max(...ids) + 1) : 1;
+                console.log('Next ID:', this.nextId);
+              } else {
+                console.error('Unexpected response format:', response.data);
               }
             } catch (error) {
-              console.error("エラー:", error);
+              console.error('Error fetching data:', error);
             }
-          }
-        },
-        async deleteFromFavorite() {
-          const user_id = await this.getUserId();
-          const recipe_id = sessionStorage.getItem("recipe_id");
+          },
 
-          if (user_id && recipe_id) {
-            try {
-              const response = await axios.post("https://m3h-kouhei-2010.azurewebsites.net/api/FAVORITEDELETE", { user_id, recipe_id });
-              if (response.status === 200) {
-                this.isFavorite = false;
+          async addToFavorite() {
+            await this.readNextFavoriteId();
+            const favorite_id = Number(this.nextId);
+            const user_id = await this.getUserId();
+            const recipe_id = sessionStorage.getItem("recipe_id");
+
+            const favoritedata = {
+              favorite_id: favorite_id,
+              user_id: user_id,
+              recipe_id: recipe_id
+            }
+
+            console.log('User ID :', user_id); // デバッグ用ログ
+            console.log('Recipe ID from sessionStorage:', recipe_id); // デバッグ用ログ
+            console.log('Favorite ID :', favorite_id);
+
+            if (user_id && recipe_id) {
+              try {
+                const response = await axios.post("https://m3h-kouhei-2010.azurewebsites.net/api/FAVORITEINSERT", favoritedata, {
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                });
+
+                if (response.status === 200) {
+                  console.log('お気に入りに追加しました！');
+                  this.isFavorite = true; // 状態を更新
+                } else {
+                  console.error('エラーが発生しました');
+                }
+              } catch (error) {
+                console.error("エラー:", error);
               }
-            } catch (error) {
-              console.error("エラー:", error);
+            } else {
+              console.error("ユーザーIDまたはレシピIDが取得できませんでした。");
             }
-          }
-        },
-        async checkIfFavorite() {
-          const user_id = await this.getUserId();
-          const recipe_id = sessionStorage.getItem("recipe_id");
-
-          if (user_id && recipe_id) {
+          },
+ 
+          async deleteFromFavorite() {
+            const user_id = await this.getUserId();
+            const recipe_id = sessionStorage.getItem("recipe_id");
+           
+            console.log('User ID:', user_id); // ユーザーIDを表示
+            console.log('Recipe ID:', recipe_id); // レシピIDを表示
+ 
+            if (user_id && recipe_id) {
+              try {
+                const response = await axios.post("https://m3h-kouhei-2010.azurewebsites.net/api/FAVORITEDELETE", {
+                  user_id: user_id,
+                  recipe_id: recipe_id
+                }, {
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                });
+ 
+                if (response.status === 200) {
+                  console.log('お気に入りが解除されました！');
+                  this.isFavorite = false; // 状態を更新
+                  alert('お気に入りが解除されました。');
+                } else {
+                  console.error('エラーが発生しました');
+                  alert('エラーが発生しました。');
+                }
+              } catch (error) {
+                console.error("エラー:", error);
+                alert('エラーが発生しました。');
+              }
+            } else {
+              console.error("ユーザーIDまたはレシピIDが取得できませんでした。");
+              alert('ユーザーIDまたはレシピIDが取得できませんでした。');
+            }
+          },
+ 
+          async checkIfFavorite() {
+            const user_id = await this.getUserId();
+            const recipe_id = sessionStorage.getItem("recipe_id");
+           
+            console.log('User ID:', user_id); // ユーザーIDを表示
+            console.log('Recipe ID:', recipe_id); // レシピIDを表示
+ 
+            if (user_id && recipe_id) {
             try {
               const response = await axios.get(`https://m3h-kouhei-2010.azurewebsites.net/api/CHECKIFFAVORITE?user_id=${user_id}&recipe_id=${recipe_id}`);
-              this.isFavorite = response.data.isFavorite;
-            } catch (error) {
-              console.error('Error:', error);
-            }
+              const isFavorite = response.data.isFavorite;  // APIレスポンスからisFavoriteを取得              
+             
+              // お気に入り状態に応じてボタンを切り替え
+              this.isFavorite = isFavorite;
+                    console.log('お気に入り状態:', this.isFavorite);
+                  } catch (error) {
+                    console.error('Error checking favorite status:', error);
+                  }
+                } else {
+                  console.error('ユーザーIDまたはレシピIDが取得できませんでした。');
+                }
+              },
+              navigate() {
+              window.location.href = 'home.html';
+            },
+
+            logout(){
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        sessionStorage.removeItem('user_name');
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        window.location.href = 'index.html';
+                    }
+
           }
-        },
-        navigate() {
-          window.location.href = 'home.html';
-        }
-      }
-    });
-  </script>
-</body>
+      });
+    </script>
+  </body>
 </html>

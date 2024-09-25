@@ -8,12 +8,108 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>丸ごと焼きリンゴ | レシピ詳細</title>
+  <style>
+    /* ハンバーガーメニューアイコンのスタイル */
+    .hamburger {
+                display: none;
+                width: 30px;
+                height: 25px;
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .hamburger span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: gray;
+                margin-bottom: 5px;
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+            
+            /* メニューが開いている状態のスタイル */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            /* ドロップダウンメニューのスタイル */
+            .nav-menu {
+                display: none;
+                background-color: #fddbb0;
+                color:gray;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                width: 200px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                color: gray !important;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 10px;
+                color: gray !important;;
+                text-decoration: none;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+            
+            /* 小さい画面向けのスタイル */
+            @media (max-width: 1000px) {
+                .headerbtn {
+                    display: none;
+                }
+            
+                .hamburger {
+                    display: block;
+                }
+            }
+  </style>
+
 </head>
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn class="headerbtn" @click="logout()">logout</v-btn>
+        <div class="hamburger" @click="toggleMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+          </div>
+          <div :class="{'nav-menu': true, 'active': isMenuOpen}">
+          <a href="home.html">Home</a>
+          <a href="mypage.html">My Page</a>
+          <a @click="logout()">Logout</a>
+        </div>
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>丸ごと焼きリンゴ</h1>
       </div>
@@ -54,10 +150,10 @@
           <h2>材料</h2>
           <ul>
             <li>りんご 2個</li>
-            <li>A. キャンディ 4個</li>
-            <li>A. バター 30g</li>
-            <li>A. レーズン 10g</li>
-            <li>A. シナモンスティック 2本</li>
+            <li>キャンディ 4個</li>
+            <li>バター 30g</li>
+            <li>レーズン 10g</li>
+            <li>シナモンスティック 2本</li>
           </ul>
         </v-col>
 
@@ -65,7 +161,7 @@
           <h2>手順</h2>
           <ol>
             <ul>りんごは芯の周りに切り込みを入れ、スプーンで芯を取る。</ul>
-            <ul>りんごの穴にAをそれぞれ半量ずつ詰める。</ul>
+            <ul>りんごの穴にキャンディ・バター・レーズン・シナモンスティックをそれぞれ半量ずつ詰める。</ul>
             <ul>アルミホイルで二重に包み耐熱容器にのせ、オーブン200度で40分〜1時間ほど焼く。</ul>
           </ol>
         </v-col>
@@ -87,6 +183,7 @@
       vuetify: new Vuetify(),
       data() {
         return {
+          isMenuOpen: false,
           isFavorite: false, // 初期状態はお気に入りでない
           nextId: null
         };
@@ -97,6 +194,10 @@
       },
 
       methods: {
+        toggleMenu() {
+          this.isMenuOpen = !this.isMenuOpen;
+          },
+
         async getUserId() {
           const user_name = sessionStorage.getItem('user_name');
           if (user_name) {
@@ -217,7 +318,14 @@
 
         navigate() {
           window.location.href = 'home.html';
-        }
+        },
+
+        logout(){
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        sessionStorage.removeItem('user_name');
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        window.location.href = 'index.html';
+                    }
       }
     });
   </script>

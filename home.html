@@ -11,25 +11,123 @@
         <title>Home</title>
         <style>
             .search-app{
-                padding-top: 50px;
+                padding-top: 100px;
+                padding-left: 20px;
+                padding-right: 20px;
+
             }
             .search-card{
                 margin: 70px;
             }
-
             .search-card h2{
                 padding-bottom: 20px; 
             }
-
+            .btn-search {
+                background-color: #c6ebc5 !important;
+            }
             .itemlist{
                 margin: 0 50px 20px 50px !important;
             }
-
-            .itemlist .v-card:hover {
+            .recipe-detail:hover {
                 cursor: pointer !important;
                 background-color: #f5f5f5 !important;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important; 
                 transition: background-color 0.3s, box-shadow 0.3s !important;
+            }
+            /* ハンバーガーメニューアイコンのスタイル */
+            .hamburger {
+                display: none;
+                width: 30px;
+                height: 25px;
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .hamburger span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: gray;
+                margin-bottom: 5px;
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+            
+            /* メニューが開いている状態のスタイル */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            /* ドロップダウンメニューのスタイル */
+            .nav-menu {
+                display: none;
+                background-color: #c6ebc5;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                width: 200px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                color: gray !important;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 10px;
+                color: gray !important;
+                text-decoration: none;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+            
+            /* 小さい画面向けのスタイル */
+            @media (max-width: 1000px) {
+                .v-btn {
+                    display: none;
+                }
+            
+                .hamburger {
+                    display: block;
+                }
+            }
+
+            .highlight {
+                display: inline-block;
+                background: linear-gradient(transparent 60%, #c6ebc5 60%);
+                margin-bottom: 15px;
+            }
+            .highlight1 {
+                display: inline-block;
+                background: linear-gradient(transparent 60%, #c6ebc5 60%);
+                padding-bottom: 0 !important;
+                margin-bottom: 15px;
+            }
+            .highlighted {
+                background: linear-gradient(transparent 60%, #c6ebc5 60%);
+                display: inline-block;
+                margin-bottom: 5px;
+                font-size: 14px;
+                line-height: 1.5;
             }
         </style>
     </head>
@@ -40,17 +138,28 @@
                 <v-app-bar app>
                     <h1>😊おちゃらけ😊</h1>
                     <v-spacer></v-spacer>
-                        <v-btn onclick="window.location.href = 'home.html';">Home</v-btn> |
-                        <v-btn onclick="window.location.href = 'mypage.html';">my page</v-btn> |
+                        <v-btn onclick="window.location.href = 'home.html';">Home</v-btn>
+                        <v-btn onclick="window.location.href = 'mypage.html';">my page</v-btn>
                         <v-btn @click="logout()">logout</v-btn>
+                    <div class="hamburger" @click="toggleMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        </div>
+                        <div :class="{'nav-menu': true, 'active': isMenuOpen}">
+                        <a href="home.html">Home</a>
+                        <a href="mypage.html">My Page</a>
+                        <a @click="logout()">Logout</a>
+                    </div>
                 </v-app-bar>
+
 
             <div class="search-app">
                 <v-card class="mx-auto search-card" outlined elevation="2" tile>
                     <v-form @submit.prevent="searchRecipes">
                         <v-container>
                             <v-col cols="12">
-                                <h2>条件でレシピを検索</h2>
+                                <h2 class="highlight1">条件でレシピを検索</h2>
                                 <h5>レシピカテゴリーを選択してね🥄</h5>
                                 <v-radio-group v-model="recipe_category" row>
                                     <v-radio v-for="(category, index) in categories" :key="index" :label="category" :value="category"></v-radio>
@@ -80,12 +189,12 @@
             </div>
 
                 <div v-if="recipes.length > 0" class="itemlist">
-                <h2>レシピ一覧</h2>
+                <h2 class="highlight">レシピ一覧</h2>
                 <!-- レシピカードを表示するエリア -->
                 <v-container class="px-4"> <!-- 左右にスペースを追加 -->
                     <v-row>
                         <v-col v-for="recipe in recipes" :key="recipe.recipe_id" cols="12" sm="6" md="4">
-                            <v-card class="mx-aurecipe-cardto " max-width="400" outlined @click="goToDetail(recipe.recipe_id)">
+                            <v-card class="mx-aurecipe-cardto recipe-detail" max-width="400" outlined @click="goToDetail(recipe.recipe_id)">
                                 <v-img
                                 class="white--text align-end"
                                 height="200px"
@@ -99,8 +208,11 @@
                                 </v-card-subtitle>
                 
                                 <v-card-text class="card-recipe-time">
-                                    <div>調理時間: {{ recipe.recipe_time }} 分</div>
+                                    <div>
+                                        <span class="highlighted">調理時間</span>: {{ recipe.recipe_time }} 分
+                                    </div>
                                 </v-card-text>
+                                
                                 
                                 <!-- <v-card-actions>
                                     <v-btn text @click="goToDetail(recipe.recipe_id)">詳細を見る</v-btn>
@@ -133,11 +245,17 @@
             vuetify: new Vuetify(),
             data() {
                 return {
+                isMenuOpen: false,
                 recipe_category: "",
                 recipe_scene: "",
                 recipes: [],
+                filteredRecipes: [],
+                dataList: [],
                 categories: ['チョコ', 'クッキー', 'キャンディ', 'キャラメル', 'ホットケーキミックス', 'はちみつ'],
                 scenes: ['ハロウィン', 'クリスマス', 'お祝い', 'パーティー', 'おしゃれ', '親子で作る', 'カフェ気分', '時短レシピ'],
+                selectedCategories: [],// チェックボックスで選択したカテゴリーを格納する配列
+                selectedScenes: [],// チェックボックスで選択したシーンを格納する配列
+
             };
         },
 
@@ -146,6 +264,9 @@
         },
 
         methods: {
+            toggleMenu() {
+                this.isMenuOpen = !this.isMenuOpen;
+            },
             //レシピ全表示
             async allRecipes(){
                 try {

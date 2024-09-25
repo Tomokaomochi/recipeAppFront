@@ -8,11 +8,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ガトーショコラ | お菓子メーカー</title>
+  <style>
+    /* ハンバーガーメニューアイコンのスタイル */
+    .hamburger {
+                display: none;
+                width: 30px;
+                height: 25px;
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .hamburger span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: gray;
+                margin-bottom: 5px;
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+            
+            /* メニューが開いている状態のスタイル */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            /* ドロップダウンメニューのスタイル */
+            .nav-menu {
+                display: none;
+                background-color: #fddbb0;
+                color:gray;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                width: 200px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                color: gray !important;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 10px;
+                color: gray !important;;
+                text-decoration: none;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+            
+            /* 小さい画面向けのスタイル */
+            @media (max-width: 1000px) {
+                .headerbtn {
+                    display: none;
+                }
+            
+                .hamburger {
+                    display: block;
+                }
+            }
+  </style>
+
 </head>
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn class="headerbtn" @click="logout()">logout</v-btn>
+        <div class="hamburger" @click="toggleMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+          </div>
+          <div :class="{'nav-menu': true, 'active': isMenuOpen}">
+          <a href="home.html">Home</a>
+          <a href="mypage.html">My Page</a>
+          <a @click="logout()">Logout</a>
+        </div>
+      </v-app-bar>
 
       <div class="title-container">
         <h1>ガトーショコラ</h1>
@@ -53,11 +149,15 @@
         <v-col cols="5" class="ingredients">
           <h2>材料</h2>
           <ul>
-            <li>チョコレート100g(板チョコ2枚)</li>
-            <li>バター100g</li>
-            <li>ココアパウダー40g</li>
-            <li>A. 卵黄3個分、砂糖40g</li>
-            <li>B. 卵白3個分、砂糖40g</li>
+            <li>チョコレート 100g(板チョコ2枚)</li>
+            <li>バター 100g</li>
+            <li>ココアパウダー 40g</li>
+            <p>A</p>
+            <li>卵黄 3個分</li>
+            <li>砂糖 40g</li>
+            <p>B</p>
+            <li>卵白 3個分</li>
+            <li>砂糖 40g</li>
           </ul>
         </v-col>
 
@@ -65,13 +165,13 @@
           <h2>手順</h2>
           <ol>
             <ul>チョコレートを細かく切ってボウルに入れ、湯せんにかける。</ul>
-            <ul>1が溶けたら、室温で柔らかくしたバターを入れ、混ぜる。</ul>
-            <ul>2にココアパウダーをふるって入れ、さらに混ぜる。</ul>
+            <ul>①が溶けたら、室温で柔らかくしたバターを入れ、混ぜる。</ul>
+            <ul>②にココアパウダーをふるって入れ、さらに混ぜる。</ul>
             <ul>Aの材料を合わせ、少し白っぽくなるまで混ぜる。</ul>
             <ul>Bの卵白を泡立て、砂糖を2~3回に分けて入れ、さらに泡立ててメレンゲを作る。</ul>
-            <ul>3に4と5を交互に入れ、メレンゲの泡をつぶさないように、さっくり混ぜ込む。</ul>
-            <ul>直径18cm丸型の底と側面にクッキングペーパーを敷き、6を流し入れる。</ul>
-            <ul>7を160℃のオーブンに入れて40分ほど焼き、冷めてから切り分ける。</ul>
+            <ul>③に④と⑤を交互に入れ、メレンゲの泡をつぶさないように、さっくり混ぜ込む。</ul>
+            <ul>直径18cm丸型の底と側面にクッキングペーパーを敷き、⑥を流し入れる。</ul>
+            <ul>⑦を160℃のオーブンに入れて40分ほど焼き、冷めてから切り分ける。</ul>
           </ol>
         </v-col>
       </v-row>
@@ -91,6 +191,7 @@
       vuetify: new Vuetify(),
       data() {
         return {
+          isMenuOpen: false,
           isFavorite: false, // 初期状態はお気に入りでない
           nextId: null
         };
@@ -101,6 +202,10 @@
       },
 
       methods: {
+        toggleMenu() {
+          this.isMenuOpen = !this.isMenuOpen;
+          },
+
         async getUserId() {
           const user_name = sessionStorage.getItem('user_name');
           if (user_name) {
@@ -205,7 +310,15 @@
 
         navigate() {
           window.location.href = 'home.html';
-        }
+        },
+        
+        logout(){
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        sessionStorage.removeItem('user_name');
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        window.location.href = 'index.html';
+                    }
+
       }
     });
   </script>

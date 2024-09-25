@@ -8,17 +8,112 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>チョコレートムース | お菓子メーカー</title>
-
+  <style>
+    /* ハンバーガーメニューアイコンのスタイル */
+    .hamburger {
+                display: none;
+                width: 30px;
+                height: 25px;
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .hamburger span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: gray;
+                margin-bottom: 5px;
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+            
+            /* メニューが開いている状態のスタイル */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            /* ドロップダウンメニューのスタイル */
+            .nav-menu {
+                display: none;
+                background-color: #fddbb0;
+                color:gray;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                width: 200px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                color: gray !important;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 10px;
+                color: gray !important;;
+                text-decoration: none;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+            
+            /* 小さい画面向けのスタイル */
+            @media (max-width: 1000px) {
+                .headerbtn {
+                    display: none;
+                }
+            
+                .hamburger {
+                    display: block;
+                }
+            }
+  </style>
+ 
 </head>
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-  
+      <v-app-bar app>
+      <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+      <v-spacer></v-spacer>
+      <v-btn class="headerbtn" onclick= "window.location.href = 'home.html';">Home</v-btn>
+      <v-btn class="headerbtn" onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+      <v-btn class="headerbtn" @click="logout()">logout</v-btn>
+      <div class="hamburger" @click="toggleMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+        </div>
+        <div :class="{'nav-menu': true, 'active': isMenuOpen}">
+        <a href="home.html">Home</a>
+        <a href="mypage.html">My Page</a>
+        <a @click="logout()">Logout</a>
+      </div>
+    </v-app-bar>
+
       <div class="title-container">
         <h1>チョコレートムース</h1>
       </div>
-  
+ 
       <!-- <div class="container"> -->
         <v-row class="outline">
           <v-col cols="7" class="recipe-photo">
@@ -26,7 +121,7 @@
           </v-col>
           <v-col cols="5">
             <div class="recipe-info">
-              
+             
                 <v-btn
                 v-if="!isFavorite"
                 color="amber accent-3"
@@ -35,7 +130,7 @@
                   <v-icon>mdi-star-outline</v-icon>
                   お気に入りに追加
                 </v-btn>
-      
+     
                 <v-btn
                 v-else
                 color="amber accent-3"
@@ -44,14 +139,14 @@
                   <v-icon>mdi-star</v-icon>
                   お気に入りから削除
                 </v-btn>
-              
+             
               <p><strong>カテゴリー:</strong> チョコ</p>
               <p><strong>調理時間:</strong> 25分</p>
               <p><strong>使用商品:</strong> おちゃらけチョコ</p>
             </div>
           </v-col>
         </v-row>
-
+ 
         <v-row class="details">
           <v-col cols="5" class="ingredients">
             <!-- <div class="details"> -->
@@ -60,14 +155,15 @@
                 <ul>
                   <li>板チョコ 2枚</li>
                   <li>水 30ml</li>
+                  <p>トッピング</p>
                   <li>生クリーム</li>
-                  <li>オレンジピール（トッピング）</li>
+                  <li>オレンジピール</li>
                 </ul>
               <!-- </div> -->
             </v-col>
-          
-
-          
+         
+ 
+         
             <v-col cols="7" class="steps">
               <!-- <div class="steps"> -->
                 <h2>手順</h2>
@@ -78,10 +174,10 @@
                   <ul>もったりしてきたら容器に移し、冷蔵庫で固める。</ul>
                 </ol>
               <!-- </div> -->
-            </v-col> 
+            </v-col>
           </v-row>
       <!-- </div> -->
-
+ 
         <!-- <v-container>
           <v-icon
           v-if="!isFavorite"
@@ -90,7 +186,7 @@
           @click="addToFavorite">
             mdi-star-outline
           </v-icon>
-
+ 
           <v-icon
           v-else
           color="amber accent-3"
@@ -98,34 +194,39 @@
             mdi-star
           </v-icon>
         </v-container> -->
-
+ 
         <v-col cols="12" class="btn-col">
           <v-btn @click="navigate()" class="recipe_btn btn">戻る</v-btn>
         </v-col>
       </div>
     </v-app>
   </div>
-
+ 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+ 
   <script>
     new Vue({
         el: '#app',
         vuetify: new Vuetify(),
         data() {
           return {
+            isMenuOpen: false,
             isFavorite: false, // 初期状態はお気に入りでない
             nextId: null
           };
         },
-
+ 
         async mounted() {
           await this.checkIfFavorite();
         },
-
+ 
         methods: {
+          toggleMenu() {
+          this.isMenuOpen = !this.isMenuOpen;
+          },
+
           // セッションのuser_nameからuser_idをとってくる
           async getUserId() {
             const user_name = sessionStorage.getItem('user_name');
@@ -148,14 +249,14 @@
               return null;
             }
           },
-
+ 
           async readNextFavoriteId() {
             try {
               const response = await axios.get('https://m3h-kouhei-2010.azurewebsites.net/api/FAVORITEALLSELECT');
               console.log('Response:', response);
               console.log('Response data:', response.data);
               console.log('response.data.List:', response.data.List);
-
+ 
               if (response.data && response.data.List) {
                 const ids = response.data.List.map(favoriteid => Number(favoriteid.favorite_id));
                 this.nextId = ids.length ? Number(Math.max(...ids) + 1) : 1;
@@ -167,23 +268,23 @@
               console.error('Error fetching data:', error);
             }
           },
-
+ 
           async addToFavorite() {
             await this.readNextFavoriteId();
             const favorite_id = Number(this.nextId);
             const user_id = await this.getUserId();
             const recipe_id = sessionStorage.getItem("recipe_id");
-
+ 
             const favoritedata = {
               favorite_id: favorite_id,
               user_id: user_id,
               recipe_id: recipe_id
             }
-
+ 
             console.log('User ID :', user_id); // デバッグ用ログ
             console.log('Recipe ID from sessionStorage:', recipe_id); // デバッグ用ログ
             console.log('Favorite ID :', favorite_id);
-
+ 
             if (user_id && recipe_id) {
               try {
                 const response = await axios.post("https://m3h-kouhei-2010.azurewebsites.net/api/FAVORITEINSERT", favoritedata, {
@@ -191,7 +292,7 @@
                     "Content-Type": "application/json"
                   }
                 });
-
+ 
                 if (response.status === 200) {
                   console.log('お気に入りに追加しました！');
                   this.isFavorite = true; // 状態を更新
@@ -266,8 +367,15 @@
               },
               navigate() {
               window.location.href = 'home.html';
+            },
+
+            logout(){
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        sessionStorage.removeItem('user_name');
+                        //console.log('User Name saved:', sessionStorage.getItem('user_name'));//デバック用
+                        window.location.href = 'index.html';
+                    }
             }
-          }
       });
     </script>
   </body>

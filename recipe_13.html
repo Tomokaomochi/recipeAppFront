@@ -13,8 +13,15 @@
 <body>
   <div id="app">
     <v-app>
-      <header>🍰おちゃらけ天使のお菓子レシピ🎂</header>
-
+      <v-app-bar app>
+        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <v-spacer></v-spacer>
+        <v-btn onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn @click="logout()">logout</v-btn>
+  
+      </v-app-bar>
+  
       <div class="title-container">
         <h1>しっとりパンプキンケーキ</h1>
       </div>
@@ -54,16 +61,16 @@
 
       <v-row class="details">
         <v-col cols="5" class="ingredients">
-          <h2>材料:</h2> 
+          <h2>材料</h2> 
           <ul>
-            <li>ホットケーキミックス150g</li>
-            <li>かぼちゃ150g（皮なし）</li>
-            <li>牛乳大さじ3</li>
-            <li>卵1個</li>
-            <li>砂糖50g</li>
-            <li>サラダ油大さじ4</li>
-            <li>クリームチーズ60g</li>
-            <li>くるみ20g</li>
+            <li>ホットケーキミックス 150g</li>
+            <li>かぼちゃ 150g（皮なし）</li>
+            <li>牛乳 大さじ3</li>
+            <li>卵 1個</li>
+            <li>砂糖 50g</li>
+            <li>サラダ油 大さじ4</li>
+            <li>クリームチーズ 60g</li>
+            <li>くるみ 20g</li>
           </ul>
         </v-col>
 

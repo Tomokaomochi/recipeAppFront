@@ -12,7 +12,6 @@
             body {
                 margin: 0;
                 padding: 0;
-                /* background-image: url('https://th.bing.com/th/id/OIP.gQUYX3QqXXynQkeQl4MWWAHaHr?rs=1&pid=ImgDetMain'); */
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -31,7 +30,7 @@
             }
     
             .login-container {
-                max-width: 400px;
+                max-width: 400px !important;
                 padding: 20px;
                 background-color: rgba(255, 255, 255, 0.9);
                 border-radius: 8px;
@@ -43,23 +42,39 @@
                 color: #4CAF50;
             }
     
-            .v-btn {
-                background-color: #4CAF50;
+            .upper-btn {
+                background-color: #c6ebc5 !important;
+                color: gray !important;
+                margin-top: 20px;
+                width: 200px;
+            }
+
+            .lower-btn {
                 color: #fff;
                 margin-top: 20px;
             }
     
-            .v-btn:hover {
-                background-color: #388E3C;
+            .upper-btn:hover {
+                background-color: #b6dab5 !important;
             }
     
             .v-alert {
                 margin-top: 20px;
             }
-    
+
             .v-text-field label {
                 color: #388E3C;
             }
+
+            .text-center {
+                display: flex;
+                justify-content: center;
+            }
+
+            .left-align {
+                text-align: left;
+            }
+
         </style>
     </head>
    
@@ -92,10 +107,19 @@
                             color="#1b5e20"
                             required
                             ></v-text-field>
-                            <v-btn @click="login">ログイン</v-btn>
+
+                            <div class="text-center">
+                                <v-btn class="upper-btn" @click="login">ログイン</v-btn>
+                            </div>
+                            <div class="text-center">
+                                <v-btn class="upper-btn" @click="navigate">新規会員登録はこちら</v-btn>
+                            </div>
                         </v-form>
-                        <v-btn @click="navigate">新規会員登録はこちら</v-btn><br>
-                        <v-btn @click="toIndex">戻る</v-btn>
+
+                        <div class="left-align">
+                            <v-btn class="lower-btn" @click="toIndex">戻る</v-btn>
+                        </div>
+
                         <v-alert v-if="errorMessage" type="error">{{ errorMessage }}</v-alert>
                     </v-container>
                 </v-main>
@@ -169,4 +193,3 @@
         </script>
     </body>
 </html>
- 
