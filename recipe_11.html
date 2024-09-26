@@ -8,18 +8,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta charset="UTF-8">
   <title>キャラメルアイス | お菓子メーカー</title>
+  <style>
+    /* ハンバーガーメニューアイコンのスタイル */
+    .hamburger {
+                display: none;
+                width: 30px;
+                height: 25px;
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .hamburger span {
+                display: block;
+                width: 100%;
+                height: 4px;
+                background-color: gray;
+                margin-bottom: 5px;
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+            
+            /* メニューが開いている状態のスタイル */
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            /* ドロップダウンメニューのスタイル */
+            .nav-menu {
+                display: none;
+                background-color: #fddbb0;
+                color:gray;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                width: 200px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                border-radius: 5px;
+                color: gray !important;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 10px;
+                color: gray !important;;
+                text-decoration: none;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .nav-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+            
+            /* 小さい画面向けのスタイル */
+            @media (max-width: 1000px) {
+                .headerbtn {
+                    display: none;
+                }
+            
+                .hamburger {
+                    display: block;
+                }
+            }
+  </style>
 </head>
 
 <body>
   <div id="app">
     <v-app>
       <v-app-bar app>
-        <h1>🍰おちゃらけ天使のお菓子レシピ🎂</h1>
+        <h1>😊おちゃれぴ😊</h1>
         <v-spacer></v-spacer>
-        <v-btn onclick= "window.location.href = 'home.html';">Home</v-btn>
-        <v-btn onclick= "window.location.href = 'mypage.html';">my page</v-btn>
-        <v-btn @click="logout()">logout</v-btn>
-  
+        <v-btn class="headerbtn" onclick= "window.location.href = 'home.html';">Home</v-btn>
+        <v-btn class="headerbtn" onclick= "window.location.href = 'mypage.html';">my page</v-btn>
+        <v-btn class="headerbtn" @click="logout()">logout</v-btn>
+        <div class="hamburger" @click="toggleMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+          </div>
+          <div :class="{'nav-menu': true, 'active': isMenuOpen}">
+          <a href="home.html">Home</a>
+          <a href="mypage.html">My Page</a>
+          <a @click="logout()">Logout</a>
+        </div>
       </v-app-bar>
   
       <div class="title-container">
@@ -110,6 +198,7 @@
         vuetify: new Vuetify(),
         data() {
           return {
+            isMenuOpen: false,
             isFavorite: false, // 初期状態はお気に入りでない
             nextId: null
           };
@@ -120,6 +209,9 @@
         },
  
         methods: {
+          toggleMenu() {
+            this.isMenuOpen = !this.isMenuOpen;
+          },
           // セッションのuser_nameからuser_idをとってくる
           async getUserId() {
             const user_name = sessionStorage.getItem('user_name');
