@@ -46,6 +46,11 @@
         .v-app-bar .v-btn:hover {
             background-color: #c6ebc5 !important; /* ボタンにホバー時の背景色 */
         }
+        .regist-btn {
+            color: gray !important; /* ボタンのテキストの色 */ 
+            position: absolute;
+            right: 120px;
+        }
         .login-btn {  
             color: gray !important; /* ボタンのテキストの色 */ 
             position: absolute;
@@ -169,6 +174,7 @@
             <header>
                 <v-app-bar class="bar">
                     <h1>😊おちゃれぴ😊</h1>
+                    <v-btn onclick= "window.location.href = 'userregist.html'" class="regist-btn">新規登録</v-btn>
                     <v-btn @click="navigate" class="login-btn">login</v-btn>
                 </v-app-bar>
             </header>
